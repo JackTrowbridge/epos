@@ -23,8 +23,8 @@ Route::get('/user', function () {
     dd(Auth::user());
 });
 
-Route::get('/login', [SessionController::class, 'create']);
-Route::post('/login', [SessionController::class, 'store']);
+Route::get('/session', [SessionController::class, 'create']);
+Route::post('/session', [SessionController::class, 'store']);
 Route::post('/logout', [SessionController::class, 'destroy']);
 
 Route::get('/register', [RegisterController::class, 'create']);

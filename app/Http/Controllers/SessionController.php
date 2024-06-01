@@ -6,12 +6,22 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 class SessionController extends Controller
 {
     public function create(){
-        return Inertia::render('/login');
+
+        $user = Auth::user();
+
+        if($user == null){
+            return redirect('/');
+        }
+
+        return Inertia::render('TillScreen', [
+            'user' => $user
+        ]);
     }
     public function store(Request $request)
     {
@@ -27,12 +37,14 @@ class SessionController extends Controller
         }
 
         Auth::login($user);
-        return redirect('/');
+        return Inertia::render('TillScreen', [
+            'user' => $user
+        ]);
 
     }
     public function destroy(Request $request)
     {
         Auth::logout();
-        return redirect('/')->with('success', 'Goodbye!');
+        return redirect('/')->with('flash', 'Goodbye!');
     }
 }

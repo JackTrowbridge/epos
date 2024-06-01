@@ -1,6 +1,11 @@
 import './bootstrap';
 import { createApp, h } from 'vue'
 import { createInertiaApp } from '@inertiajs/vue3'
+import {library} from "@fortawesome/fontawesome-svg-core";
+import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
+import {faUser} from "@fortawesome/free-solid-svg-icons";
+
+library.add(faUser);
 
 createInertiaApp({
     id: 'app',
@@ -11,6 +16,7 @@ createInertiaApp({
     setup({ el, App, props, plugin }) {
         createApp({ render: () => h(App, props) })
             .use(plugin)
+            .component('font-awesome-icon', FontAwesomeIcon)
             .mount(el)
     },
 })
